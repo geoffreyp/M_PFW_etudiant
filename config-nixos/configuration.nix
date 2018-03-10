@@ -2,6 +2,8 @@
 
   imports = [ ./hardware-configuration.nix ];
 
+  boot.kernelModules = [ "fuse" ];
+
   boot.loader.grub = {
     device = "/dev/sda"; 
     enable = true;
@@ -10,11 +12,11 @@
 
   #environment.shellInit = ''
   #  export http_proxy="http://TODO:TODO@192.168.22.62:3128"; 
-  #  export https_proxy="http://TODO:TODO@192.168.22.62:3128"; 
+  #  export https_proxy="$http_proxy"; 
   #'';
 
   environment.systemPackages = with pkgs; [
-    emacs chromium firefox geany git sudo vim 
+    emacs chromium firefox geany git sshfs-fuse sudo vim 
   ];
 
   i18n = {
