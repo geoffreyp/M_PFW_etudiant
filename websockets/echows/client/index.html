@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>echows</h1>
+    <input id="prompt" disabled="disabled" />
+    <p id="reply"> </p>
+
+    <script>
+      //var my_ws = new WebSocket("ws://192.168.56.101:9000/");
+      var my_ws = new WebSocket("ws://localhost:9000/");
+      var my_prompt = document.getElementById('prompt');
+      var my_reply = document.getElementById('reply');
+
+      my_ws.onopen = function(_) {
+        my_prompt.disabled = false;
+        my_prompt.onkeydown = function (key_evt) {
+          if (key_evt.keyCode == 13) {
+            my_ws.send(my_prompt.value);
+          }
+        }
+      };
+
+      // TODO handle reply
+    </script>
+
+  </body>
+</html>
