@@ -1,0 +1,19 @@
+name:                caesar
+version:             0.1
+build-type:          Simple
+cabal-version:       >=1.10
+license:             BSD3
+
+executable hello.cgi
+  main-is:             Hello.hs
+  build-depends:       base, network, cgi
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+
+-- TODO hellohtml.cgi
+
+executable caesar.cgi
+  main-is:             Caesar.hs
+  build-depends:       base, network, cgi, xhtml
+  hs-source-dirs:      src
+  default-language:    Haskell2010
