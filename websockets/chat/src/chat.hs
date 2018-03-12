@@ -25,6 +25,15 @@ application pending = do
     putStrLn $ "received: " ++ show txt
     WS.sendTextData conn txt
 
+{-
+type ServerState = [WS.Connection]
+
+newServerState :: ServerState
+newServerState = []
+
+...
+-}
+
 decodeMsg :: WS.DataMessage -> B.ByteString
 decodeMsg (WS.Text b) = toStrict b
 decodeMsg _ = ""
