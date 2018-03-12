@@ -6,6 +6,9 @@ import           Data.ByteString.Lazy (toStrict)
 import qualified Data.ByteString.Char8 as BC
 import qualified Network.WebSockets as WS
 
+-- TODO loop for client messages
+-- TODO send message back to client
+
 main :: IO ()
 main = do
   putStrLn "running server..." 
@@ -16,14 +19,12 @@ application pc = do
   conn <- WS.acceptRequest pc
   WS.forkPingThread conn 30
   handleConnection conn
-  -- TODO loop for client messages
 
 handleConnection :: WS.Connection -> IO ()
 handleConnection conn = do
   msg <- WS.receiveDataMessage conn
   let txt = decodeMsg msg
   BC.putStrLn txt
-  -- TODO send message back to client
 
 decodeMsg :: WS.DataMessage -> B.ByteString
 decodeMsg (WS.Text b) = toStrict b
