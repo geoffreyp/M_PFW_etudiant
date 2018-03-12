@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>echocaesar</h1>
+    <p>
+    input: <br/>
+    <input id="prompt" size="60" disabled="disabled"/>
+    </p>
+    <p>results: <br/>
+    <textarea id="reply" rows="4" cols="60" readonly="readonly"/></textarea>
+    </p>
+
+    <script>
+      var my_ws = new WebSocket("ws://localhost:9000/");
+      var my_prompt = document.getElementById('prompt');
+      var my_reply = document.getElementById('reply');
+
+      // TODO send message to server
+
+      // TODO display message from server
+
+  </script>
+
+  </body>
+</html>

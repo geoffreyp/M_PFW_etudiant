@@ -1,0 +1,11 @@
+name:                echocaesar
+version:             0.1
+license:             BSD3
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable echocaesar
+  main-is:             echocaesar.hs
+  hs-source-dirs:      src
+  build-depends:       base >=4.9 && <4.10, text, websockets, bytestring, network
+  default-language:    Haskell2010
