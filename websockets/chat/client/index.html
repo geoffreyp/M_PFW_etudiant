@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h1>chat</h1>
+
+    <div id="messages" style="height:300px; width:50em; overflow:auto; 
+      border:1px solid black">
+    </div>
+
+    <br/>
+
+    <label>Prompt: </label>
+    <input id="prompt" type="text" size="70" disabled="disabled" />
+
+    <script>
+
+      var my_ws = new WebSocket("ws://localhost:9000/");
+      var my_messages = document.getElementById('messages');
+      var my_prompt = document.getElementById('prompt');
+
+      my_ws.onopen = function(_) {
+        my_prompt.disabled = false;
+        my_prompt.onkeydown = function (evt) {
+          if (evt.keyCode == 13) {
+            my_ws.send(my_prompt.value);
+            my_prompt.value = "";
+          }
+        };
+      };
+
+      my_ws.onmessage = msg => my_messages.innerHTML += msg.data + "<br/>";
+
+    </script>
+
+  </body>
+</html>
