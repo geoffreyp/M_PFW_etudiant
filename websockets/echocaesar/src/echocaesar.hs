@@ -13,7 +13,7 @@ main = do
   putStrLn $ "running server on port " ++ (show port) ++ "..."
   WS.runServer "0.0.0.0" port application
 
-application :: ServerApp
+application :: Ws.ServerApp
 application pc = WS.acceptRequest pc >>= forever . handleConnection 
 -- TODO rewrite using the do notation
 
