@@ -1,10 +1,11 @@
-import qualified Data.ByteString as B
+import           Data.ByteString (ByteString)
 import           Data.ByteString.Lazy (toStrict)
 import qualified Data.ByteString.Char8 as BC
 import qualified Network.WebSockets as WS
+import           Wuss (runSecureClient)
 
 main :: IO ()
-main = WS.runClient "echo.websocket.org" 80 "" clientApp
+main = runSecureClient "echo.websocket.org" 443 "/" clientApp
 
 clientApp :: WS.ClientApp ()
 clientApp conn = do
@@ -22,7 +23,7 @@ handleConnection conn = do
     putStrLn ""
 -- TODO loop for user inputs
 
-decodeMsg :: WS.DataMessage -> B.ByteString
+decodeMsg :: WS.DataMessage -> ByteString
 decodeMsg (WS.Text b) = toStrict b
 decodeMsg _ = BC.pack ""
 
