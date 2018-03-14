@@ -1,6 +1,8 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module CodeCaesar (codeCaesar) where
 
-import qualified Data.ByteString as B
+import qualified Data.ByteString.Lazy as B
 import           Data.Word (Word8)
 
 minLower :: Word8
