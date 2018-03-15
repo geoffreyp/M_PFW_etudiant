@@ -1,8 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import           Control.Monad (forever)
-import qualified Data.Text as T
-import qualified Database.SQLite.Simple as SQL
+import qualified Data.ByteString as B
+import           Data.ByteString.Lazy (toStrict)
+import qualified Database.PostgreSQL.Simple as P
+import qualified MusicDb (params)
 import qualified Network.WebSockets as WS
 
 main :: IO ()
@@ -18,12 +20,12 @@ handleConnection connection = do
   WS.sendTextData connection $ format titles
 -- TODO select titles in database
 
-type DbTitle = (T.Text, T.Text)
+type DbTitle = (B.ByteString, B.ByteString)
 
-format :: [DbTitle] -> T.Text
-format = T.intercalate "\n" . map (\ (a, t) -> T.concat [a, " - ", t]) 
+format :: [DbTitle] -> B.ByteString
+format = B.intercalate "\n" . map (\ (a, t) -> B.concat [a, " - ", t]) 
 
-decodeMsg :: WS.DataMessage -> T.Text
-decodeMsg (WS.Text t) = WS.fromLazyByteString t
+decodeMsg :: WS.DataMessage -> B.ByteString
+decodeMsg (WS.Text b) = toStrict b
 decodeMsg _ = ""
 

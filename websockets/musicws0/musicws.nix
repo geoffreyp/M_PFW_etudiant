@@ -1,5 +1,5 @@
-{ mkDerivation, base, network, sqlite-simple, stdenv, text
-, websockets
+{ mkDerivation, base, bytestring, network, postgresql-simple
+, stdenv, websockets
 }:
 mkDerivation {
   pname = "musicws";
@@ -8,7 +8,7 @@ mkDerivation {
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [
-    base network sqlite-simple text websockets
+    base bytestring network postgresql-simple websockets
   ];
   license = stdenv.lib.licenses.bsd3;
 }
