@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h1>users</h1>
+    <div id="users_div"></div>
+
+    <script>
+
+      const users = [
+        {"userLastname":"Dupont","userFirstname":"Toto","userId":1},
+        {"userLastname":"Duchemin","userFirstname":"Tata","userId":2},
+        {"userLastname":"Duchemin","userFirstname":"Titi","userId":3}
+      ];
+
+      // TODO rewrite using modern JS
+      var my_list = "";
+      for (i=0; i<users.length; i++) {
+        my_list += "<li>" + users[i].userFirstname + " " + users[i].userLastname + "</li>";
+      }
+
+      document.getElementById("users_div").innerHTML = `<ul> ${my_list} </ul>`;
+
+    </script> 
+
+  </body>
+</html>
+

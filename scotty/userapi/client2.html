@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h1>users</h1>
+    <div id="users_div"></div>
+
+    <script> 
+
+      // TODO add an input and filter json data matching its value (lastname)
+
+      var my_div = document.getElementById("users_div");
+      const url = 'http://localhost:3000/users';
+
+      fetch(url)
+        .then(response => response.json())
+        .then(users => {
+          const my_list = users
+            .map(u => `<li>${u.userFirstname} ${u.userLastname}</li>`)
+            .reduce((x,y) => x+y);
+          my_div.innerHTML = `<ul> ${my_list} </ul>`;
+        })
+        .catch(error => my_div.innerHTML = "no data");
+
+    </script> 
+
+  </body>
+</html>
+
