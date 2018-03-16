@@ -16,8 +16,15 @@ app = do
   S.middleware logStdoutDev
 
   S.get "/" $ mkpage "helloscotty - home" home
-
-  -- TODO echo
+  
+  S.get "/echo" $ do
+      name <- S.param "name" `S.rescue` (\_ -> return " ")
+      mkpage "helloscotty - echo" (echo_page name)
+      
+  S.get "/caesar" $ do
+      msg <- S.param "msg" `S.rescue` (\_ -> return " ")
+      key <- S.param "key" `S.rescue` (\_ -> return " ")
+      mkpage "helloscotty - echo" (caesar_page msg key)
   -- TODO caesar
   -- TODO music
 
@@ -28,6 +35,33 @@ mkpage titleStr page = S.html $ renderText $ do
     header_ $ title_ titleStr
     body_ page
 
+echo_page :: T.Text -> Lucid.Html ()
+echo_page name = do
+	h1_ "echo"
+	form_ [method_ "get", action_ "/echo"] $ do
+		input_ [type_ "text", name_ "name"]
+		input_ [type_ "text", disabled_ "true", value_ name]
+		input_ [type_ "submit"]
+	a_ [href_ "/"] "Home"
+
+caesar_page :: T.Text -> T.Text -> Lucid.Html ()
+caesar_page msg key = do
+	h1_ "Caesar"
+	form_ [method_ "get", action_ "/caesar"] $ do
+		div_ $ do
+			label_ "msg"
+			input_ [type_ "text", name_ "msg"]
+		div_ $ do
+			label_ "key"
+			input_ [type_ "text", name_ "key"]
+		input_ [type_ "submit"]
+		
+	p_ $ do
+		span_ "result : "
+		span_ (codeCaesar key msg)
+	a_ [href_ "/"] "Home"
+	
+    
 home :: Lucid.Html ()
 home = do
   h1_ "Home"
